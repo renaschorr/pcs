@@ -1,0 +1,171 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+   /*background-image: url("file:///C:/Users/Owner/homework/56/rest.jpg");
+  background-size: cover;
+   */
+   max-width: 1200px;
+   margin: 0 auto;
+}
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-family: "Times New Roman", serif;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+p {
+  font-family: 'Roboto', sans-serif;
+}
+ 
+
+nav {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+
+nav a {
+  
+  left: 10px;
+  margin-bottom: 10px;
+}
+
+
+
+.parent {
+  position: relative;
+  width: 200px;
+  background-color: #f1f1f1;
+}
+
+.child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+ /* transform: translate(-50%, -50%);*/
+}
+
+
+@media screen and (max-width: 800px) {
+  body {
+    background-color: lightblue;
+  }
+}
+
+@media screen and (min-width: 801px) {
+  body {
+    background-color: rgb(236, 240, 236);
+  }
+}
+
+
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  background-image: linear-gradient(to bottom, #888888, #dddddd);
+  background-color: rgb(255, 0, 0); 
+     color: #00ff00; 
+  background-color: rgba(255, 0, 0, 0.5); 
+     color: hsla(330, 100%, 50%, 0.7);
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  color: black;
+  text-decoration: none;
+}
+
+main {
+  padding: 20px;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+
+
+#home img {
+  width: 100%;
+  max-width: 500px;
+  display: block;
+  margin: 20px auto;
+}
+
+#menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#menu ul li {
+  margin-bottom: 20px;
+}
+
+#menu ul li h3 {
+  color: #333;
+  font-size: 20px;
+}
+
+#menu ul li img {
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  margin: 10px auto;
+}
+
+#menu ul li p {
+  color: #666;
+}
+
+#menu ul li a {
+  color: black;
+  text-decoration: underline;
+}
+
+#menu-item1 img {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+  margin: 20px auto;
+}
+
+#menu-item2 img {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+  margin: 20px auto;
+}
+#menu-item1 p:last-child {
+  font-style: italic;
+}
+#copyright {
+  width: 100%;
+  background-color: #f1f1f1;
+  color: #ffffff;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
