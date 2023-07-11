@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PCS Restaurant - Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.png" type="image/png">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to OUR Restaurant</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Our Menu</a></li>
+       
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home">
+      <h2>About Us</h2>
+      <p>Welcome to our Restaurant, where we serve delicious meals made with the freshest ingredients. 
+      Our cozy atmosphere and friendly staff will make your dining experience unforgettable.</p>
+      <img src="C:\Users\Owner\Downloads\rest.jpg" alt="Restaurant Image">
+    </section>
+  </main>
+<h2>Restaurant Information</h2>
+
+<table>
+  <caption>Restaurant Statistics</caption>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Total Sales</th>
+      <th>Average Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Appetizers</td>
+      <td>$500</td>
+      <td>4.5</td>
+    </tr>
+    <tr>
+      <td>Main Courses</td>
+      <td>$1000</td>
+      <td>4.2</td>
+    </tr>
+    <tr>
+      <td>Desserts</td>
+      <td>$300</td>
+      <td>4.8</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">Total Revenue: $1800</td>
+    </tr>
+  </tfoot>
+</table>
+
+<h2>Feedback Form</h2>
+
+<form action="/submit-feedback" method="post">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required minlength="2">
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="rating">Rating:</label>
+  <input type="number" id="rating" name="rating" required min="1" max="5">
+
+  <label for="feedback">Feedback:</label>
+  <textarea id="feedback" name="feedback" required minlength="10"></textarea>
+
+  <input type="submit" value="Submit">
+</form>
+
+  <footer>
+    <a href="index.html">Back to Home</a>
+  </footer>
+</body>
+</html>
+
+
+
