@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESTUFF</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #products{
+            padding-left: 10%;
+            padding-right: 10%;
+            
+        }
+        #Financials{
+            padding-left: 10%;
+            padding-right: 10%;
+            
+        }
+        #about{
+            
+            padding-left: 10%;
+            padding-right: 10%;
+            margin-bottom: 70px;
+            
+            
+            
+        }
+        #signup{
+            
+            margin-left: 10%;
+            margin-right: 10%;
+            margin-top: 20px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            background-color: #f1f1f1;
+            text-align: center;
+            border-radius: 10px;
+            
+            
+            
+        }
+        #signup input{
+            border-radius: 10%;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+
+        }
+
+         td:last-child {
+        color: red;
+    }
+    td:first-child {
+        font-weight: bold  ;
+    }
+        h2{
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .table-container {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+      
+        table {
+        margin-left: auto;
+        margin-right: auto;
+    }
+        .container {
+                
+                margin: 0 auto;
+                background: white;
+                padding: 20px;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  padding: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+
+}
+
+.container > div {
+  width: 100%;
+  
+}
+
+.container img {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 1000px) {
+  .container > div {
+    width: 30%;
+    border-right: 1px solid black; 
+  padding-right: 10px;
+  }
+  .container :last-child{
+    border-right: none;
+  }
+  
+}
+h3{  
+     line-height: 40px;
+     text-align: center;
+}
+   p{
+  line-height: 1.5;
+     text-align: left;
+}
+
+        body {
+            font-family: helvetica, Arial, sans-serif;
+            padding-top: 50px;
+        }
+        main {
+            margin-top: 100px; 
+            padding: 20px;
+           
+        }
+        header{
+            background-color: lightgrey;
+            text-align: center;
+            margin-left: 10%;
+            margin-right: 10%;
+            padding: 20px;
+            font-size: 14px;
+            line-height: 3em;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+   
+
+         .navbar a {
+           display: inline;
+            float: left;
+            color: white;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 18px;
+         }
+        .navbar {
+          list-style: none;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 50px;
+            background-color: black;
+            left: 0;
+            padding-left: 10%;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 20px; 
+            background-color: black;
+            color: #fff;
+            padding: 20px;
+            padding-left: 10%;
+           
+        }
+        
+        .navbar a:hover {
+            color: red;
+            text-decoration: underline;
+        }
+        
+        table {
+        width: 80%;
+        border-collapse: collapse;
+  
+
+}
+caption{
+  font-weight: bold;
+  margin-bottom: 10px;
+
+}
+table, th, td {
+  border: 1px solid black;
+
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: right;
+  
+}
+
+
+thead th {
+  background-color: #f1f1f1;
+  text-align: center; 
+   
+}
+
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+tbody tr:hover {
+        background-color: blue;
+        color: white;
+    }
+    tr:hover td {
+        background-color: blue;
+        color: white;
+    }
+    tr:hover th {
+        background-color: blue;
+        color: white;
+    }
+tfoot td {
+  font-weight: bold;
+  
+}
+
+
+.form-row {
+  display: inline;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  
+
+  .form-row {
+    display: flex;
+    flex-direction: row; 
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  .form-row label {
+    flex-basis: 30%;
+    text-align: right;
+    margin-right: 10px;
+  }
+}
+
+    </style>
+</head>
+
+<body>
+    <nav>
+        
+          <ul class="navbar">
+          <li>  <a href="#products">Products</a></li>
+          <li>  <a href="#signup">Sign Up</a></li>
+          <li>  <a href="#Financials">Financials</a></li>
+          <li><a href="#about">About Us</a></li> </ul> 
+      
+    </nav>
+
+    <header class="header">
+        <h1>      <span style="text-transform: uppercase;">EstuFF</span> </h1>
+            <h2> A <span style="font-style: italic;">PCS</span> company</h2>
+    </header>
+    <div id="products">
+        <h2>Products</h2>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+         Laudantium, illo? ipsum dolor sit, amet consectetur adipisicing 
+         elit. Esse, fugit.
+         <div class="container">
+         <div class="computers">
+         <h3>Computers</h3>
+        <img src="test/test/macworld.jpg" alt="computers">
+        <p>Lorem ipsum dolor sit amet 
+        consectetur adipisicing elit. Voluptas 
+        distinctio eaque quam, minima laborum 
+        repudiandae rem impedit itaque illum, 
+        accusantium optio
+         aspernatur ipsum eveniet? Non?</p>
+            </div>
+            <div class="Chiors"> 
+         <h3>choirs</h3>
+        <img src="C:\Users\Owner\Downloads\test\test\shira.png" alt="choirs">
+        <p>Lorem ipsum dolor sit amet 
+        consectetur adipisicing elit. Voluptas 
+        distinctio eaque quam, minima laborum 
+        repudiandae rem impedit itaque illum, 
+        accusantium optio
+         aspernatur ipsum eveniet? Non?</p>
+            </div>
+            <div class="candy">  <h3>candy</h3>
+                <img src="test/test/candy.png" alt="candy">
+                <p>Lorem ipsum dolor sit amet 
+                consectetur adipisicing elit. Voluptas 
+                distinctio eaque quam, minima laborum 
+                repudiandae rem impedit itaque illum, 
+                accusantium optio
+                 aspernatur ipsum eveniet? Non?</p></div>
+         </div>
+         
+    </div>
+
+
+    <div id="signup">
+        <h2>Sign me up</h2>
+    <div class="submit">
+
+        <form action="/submit-feedback" method="post">
+          <div class="form-row">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required minlength="2">
+        </div><div class="form-row">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required></div>
+        
+         
+        
+          <input type="submit" value="Sign me up"></div>
+        </form></div>
+
+<div id="Financials">
+    <h2>Financials</h2>
+    <div class="table-container">
+    <table>
+        <caption>profits-by quarter</caption>
+        <thead>
+          <tr>
+            <th>year</th>
+            <th>1st Quarter profit</th>
+            <th>2nd Quarter profit</th>
+            <th>3rd Quarter profit</th>
+            <th>4th Quarter profit</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2012</td>
+            <td>$1254564.32</td>
+            <td>$1154545.67</td>
+            <td>$1236566.98</td>
+            <td>$1366546.32</td>
+            <td>$5050934.29</td>
+          </tr>
+          <tr>
+            <td>2013</td>
+            <td>$1385475.87</td>
+            <td>$1485890.23</td>
+            <td>$1385588.54</td>
+            <td>$1545435.11</td>
+            <td>$5623344.75</td>
+          </tr>
+          <tr>
+            <td>2014</td>
+            <td>$1589878.76</td>
+            <td>$1698986.45</td>
+            <td>$1645458.32</td>
+            <td>$1789890.35</td>
+            <td>$8545857.88</td>
+          </tr>
+         
+        </tr>
+        <tr>
+          <td>2015</td>
+          <td>$1889776</td>
+          <td>$1854565.71</td>
+          <td>NA</td>
+          <td>NA</td>
+          <td>$3654654</td>
+        </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">Total:</td>
+            <td>$20978798</td>
+          </tr>
+        </tfoot>
+      </table></div>
+     
+    </div> 
+        
+    <div id="about">
+        <h2>About Us</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero aut architecto, 
+          aspernatur earum velit fugit impedit numquam incidunt necessitatibus?
+           Incidunt delectus cumque temporibus vel amet recusandae quia laboriosam nobis sint. 
+           Inventore facere itaque repellat necessitatibus iste fugiat eos recusandae ullam
+            placeat obcaecati quidem distinctio doloremque dignissimos incidunt explicabo 
+            ratione quasi numquam dolores quaerat quam, officia vitae veritatis! Iure a 
+            doloremque quos tenetur qui eum quo cupiditate, officiis nulla ipsa quas facere 
+            quia cumque soluta sed, impedit debitis. Aliquid laudantium ea adipisci rem, quod
+             dolore ipsum expedita doloremque corrupti doloribus, laborum modi, aperiam eum
+              sint velit necessitatibus perspiciatis distinctio natus deserunt? ipsum dolor sit 
+              amet consectetur, adipisicing elit Dolores, odit explicabo assumenda aperiam ut 
+              saepe recusandae quo aspernatur eius impedit, eveniet nisi illum quibusdam a!</p>
+    </div>
+    <footer class="footer">
+        &copy; PCS 2019
+    </footer>
+</body>
+</html>
