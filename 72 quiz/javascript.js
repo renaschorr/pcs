@@ -16,6 +16,7 @@ app.counter = (function() {
     getCount: getCount
   };
 })();
+
 app.counter.increment();
 console.log(app.counter.getCount());
 
@@ -30,6 +31,7 @@ app.counter2 = (function() {
 
     let count = 0;
 
+  // SL - whats up with the indentation here?
   function increment() {
    count++;
   }
@@ -59,8 +61,8 @@ console.log(aCounter.getCount());
 
 const anotherCounter = app.counter2.createCounter();
 anotherCounter.increment();
-console.log(anotherCounter.getCount()); 
-console.log(aCounter.getCount()); 
+console.log(anotherCounter.getCount());
+console.log(aCounter.getCount());
 
 console.log(app.counter2.getCounterCount()); 
 
@@ -85,3 +87,7 @@ for (let i = 0; i < 15; i++) {
 console.log("Counter from the first module:", app.counter.getCount());
 console.log("Counter 1 from the second module:", counter1.getCount());
 console.log("Counter 2 from the second module:", counter2.getCount());
+
+// SL - quiz asked for 3 separate files, and all counter usage together in 3rd (but no real issue, just not exactly what was asked for...)
+
+// Grade - 99.9
