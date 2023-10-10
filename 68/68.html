@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hw 68</title>
+</head>
+<body>
+
+  <script>
+    function makeCompany(name, address) {
+      const company = {
+        name: name,
+        address: address,
+        employees: [],
+
+        
+        addEmployee: function (employeeName, department) {
+          const employee = makeEmployee(employeeName, department);
+          this.employees.push(employee);
+        },
+
+        
+        print: function () {
+          console.log(`Name: ${this.name}`);
+          console.log('Employees:');
+          this.employees.forEach(employee => employee.print());
+        },
+      };
+
+      return company;
+    }
+
+    function makeEmployee(name, department) {
+      
+      const employee = {
+        name: name,
+        department: department,
+
+       
+        print: function () {
+          console.log(`Name: ${this.name}, Dept: ${this.department}`);
+        },
+      };
+
+      return employee;
+    }
+
+   
+    const tesla = makeCompany('TESLA', '123 Electric Avenue');
+    tesla.addEmployee('Elon Musk', 'CEO');
+    tesla.addEmployee('John Doe', 'Janitor');
+    tesla.print();
+
+    const google = makeCompany('Google', '1600 Amphitheatre Parkway');
+    google.addEmployee('Sundar Pichai', 'CEO');
+    google.addEmployee('Jane Smith', 'Software Engineer');
+    google.print();
+  </script>
+
+</body>
+</html>
