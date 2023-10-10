@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>69 hw</title>
+</head>
+<body>
+
+  <script>
+    
+    const interestCalculator = (() => {
+      let interestRate = 0;
+      let numberOfYears = 0;
+
+      return {
+        setRate: (rate) => {
+          interestRate = rate;
+        },
+        setYears: (years) => {
+          numberOfYears = years;
+        },
+        calculateInterest: (principal) => {
+          const interest = (principal * interestRate * numberOfYears) / 100;
+          return interest;
+        },
+      };
+    })();
+
+    
+    interestCalculator.setRate(5); 
+    interestCalculator.setYears(3); 
+    const totalInterest = interestCalculator.calculateInterest(1000);
+    console.log(`Total Interest: $${totalInterest.toFixed(2)}`);
+
+ 
+    const bankAccount1 = {
+      balance: 1000,
+      performTransaction: function (transactionAmount) {
+        this.balance += transactionAmount;
+      },
+    };
+
+    const bankAccount2 = {
+      balance: 500,
+      performTransaction: function (transactionAmount) {
+        this.balance += transactionAmount;
+      },
+    };
+
+    
+    bankAccount1.performTransaction(-200); 
+    console.log(`Account 1 Balance: $${bankAccount1.balance}`);
+
+    bankAccount2.performTransaction(300); 
+    console.log(`Account 2 Balance: $${bankAccount2.balance}`);
+
+  
+    function transaction(transactionAmount) {
+      this.balance += transactionAmount;
+    }
+
+    const bankAccount3 = {
+      balance: 1200,
+    };
+
+    const bankAccount4 = {
+      balance: 800,
+    };
+
+   
+    transaction.call(bankAccount3, -250); 
+    console.log(`Account 3 Balance: $${bankAccount3.balance}`);
+
+    transaction.apply(bankAccount4, [150]); 
+    console.log(`Account 4 Balance: $${bankAccount4.balance}`);
+
+    
+    function transactionWithBind(transactionAmount) {
+      this.balance += transactionAmount;
+    }
+
+    const savingsAccount = { balance: 1000 };
+    const depositFiftyInSavings = transactionWithBind.bind(savingsAccount, 50); 
+
+    depositFiftyInSavings(); 
+    console.log(`Savings Account Balance: $${savingsAccount.balance}`);
+  </script>
+
+</body>
+</html>
