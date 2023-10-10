@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+</head>
+<body>
+
+  <script>
+    'use strict';
+
+    
+    function fahrenheitToCelsius(fahrenheit) {
+      return ((fahrenheit - 32) * 5) / 9;
+    }
+
+   
+    function celsiusToFahrenheit(celsius) {
+      return (celsius * 9) / 5 + 32;
+    }
+
+   
+    var fahrenheitInput = prompt("Enter temperature in Fahrenheit:");
+
+   
+    var celsiusResult = fahrenheitToCelsius(parseFloat(fahrenheitInput));
+    alert("Temperature in Celsius: " + celsiusResult.toFixed(2) + "°C");
+
+    
+    var celsiusInput = prompt("Enter temperature in Celsius:");
+
+    
+    var fahrenheitResult = celsiusToFahrenheit(parseFloat(celsiusInput));
+    alert("Temperature in Fahrenheit: " + fahrenheitResult.toFixed(2) + "°F");
+  </script>
+
+</body>
+</html>
