@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hw 66</title>
+</head>
+<body>
+
+  <script>
+    'use strict';
+
+    
+    const myEvery = (arr, callback) => {
+      for (let i = 0; i < arr.length; i++) {
+        if (!callback(arr[i])) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    
+    const allUppercase = myEvery(['a', 'B', 'c'], letter => letter === letter.toUpperCase());
+    console.log(allUppercase); 
+    
+    const allLowercase = myEvery(['a', 'b', 'c'], letter => letter === letter.toLowerCase());
+    console.log(allLowercase); 
+
+    
+    const builtInEveryUppercase = ['a', 'B', 'c'].every(letter => letter === letter.toUpperCase());
+    console.log(builtInEveryUppercase); 
+
+    const builtInEveryLowercase = ['a', 'b', 'c'].every(letter => letter === letter.toLowerCase());
+    console.log(builtInEveryLowercase); 
+
+   
+    const mySome = (arr, callback) => {
+      for (let i = 0; i < arr.length; i++) {
+        if (callback(arr[i])) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    
+    const someUppercase = mySome(['a', 'B', 'c'], letter => letter === letter.toUpperCase());
+    console.log(someUppercase); 
+
+    
+    const someLowercase = mySome(['A', 'B', 'C'], letter => letter === letter.toLowerCase());
+    console.log(someLowercase); 
+
+   
+    const builtInSomeUppercase = ['a', 'B', 'c'].some(letter => letter === letter.toUpperCase());
+    console.log(builtInSomeUppercase); 
+    const builtInSomeLowercase = ['A', 'B', 'C'].some(letter => letter === letter.toLowerCase());
+    console.log(builtInSomeLowercase); 
+
+   
+    const onlyIf = (arr, test, action) => {
+      arr.forEach(item => {
+        if (test(item)) {
+          action(item);
+        }
+      });
+    };
+
+   
+    const numbers = [1, 2, 3, 4, 5, 6];
+    onlyIf(numbers, num => num % 2 === 0, num => console.log(num));
+
+    
+    const numbers2 = [1, 2, 3, 4, 5, 6];
+    numbers.filter(num => num % 2 === 0).forEach(num => console.log(num));
+
+   
+    const multiply = (a, b) => a * b;
+
+
+    console.log(multiply(2, 3)); 
+
+   
+    const getMultiplier = a => b => a * b;
+
+    
+    const multiplyByTwo = getMultiplier(2);
+    console.log(multiplyByTwo(3));
+   
+    const multiplyByFive = getMultiplier(5);
+    console.log(multiplyByFive(2)); 
+
+    const multiplyBySix = getMultiplier(6);
+    console.log(multiplyBySix(2)); 
+  </script>
+
+</body>
+</html>
