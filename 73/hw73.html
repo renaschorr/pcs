@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Changing Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Welcome to the Color Changing Page!</h1>
+<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, natus. Consequuntur deleniti cupiditate aperiam. Laborum quis, ipsa dolor ex possimus sed odio optio, saepe recusandae alias molestiae a, rem perferendis odit repellat sunt culpa omnis cumque incidunt. Rerum ab harum nesciunt deserunt fugit optio quasi nisi quibusdam, labore odio at esse voluptatum fugiat minus fuga sapiente laborum ut eius similique modi excepturi eos est? Alias delectus assumenda odit impedit sint nam distinctio consequuntur maxime id porro enim nostrum quisquam perspiciatis natus obcaecati numquam ducimus labore corporis tenetur, blanditiis autem nobis. Eligendi totam possimus officia ullam? Quis eligendi vitae unde, expedita quo aut fuga repellat necessitatibus culpa beatae adipisci corporis delectus cum reiciendis labore deleniti natus vel nam ipsam voluptatum veritatis qui. Quaerat laborum aperiam provident eos illum facilis cum dolores doloribus doloremque libero modi accusamus sequi quo ratione, quia commodi reprehenderit mollitia! Modi quaerat expedita tempore ex molestias velit aspernatur..</p>
+
+<button id="startButton">Start Changing Colors</button>
+<button id="stopButton">Stop Changing Colors</button>
+
+<table id="colorTable">
+    <tr>
+        <th>Time</th>
+        <th>Background Color</th>
+        <th>Text Color</th>
+    </tr>
+</table>
+
+<script>
+    let intervalId;
+    const colors = ['Cornsilk', 'HoneyDew', 'LemonChiffon', 'pink', 'Aquamarine'];
+    let currentIndex = 0;
+
+    const startButton = document.getElementById('startButton');
+    const stopButton = document.getElementById('stopButton');
+    const colorTable = document.getElementById('colorTable');
+
+    function changeColors() {
+        const now = new Date();
+        const bgColor = colors[currentIndex];
+        const textColor = colors[(currentIndex + 2) % colors.length];
+
+        document.body.style.backgroundColor = bgColor;
+        document.body.style.color = textColor;
+
+        const newRow = colorTable.insertRow(1);
+        const timeCell = newRow.insertCell(0);
+        const bgColorCell = newRow.insertCell(1);
+        const textColorCell = newRow.insertCell(2);
+
+        timeCell.textContent = now.toLocaleTimeString();
+        bgColorCell.textContent = bgColor;
+        textColorCell.textContent = textColor;
+
+        currentIndex = (currentIndex + 1) % colors.length;
+    }
+
+    startButton.addEventListener('click', () => {
+        clearInterval(intervalId);
+        intervalId = setInterval(changeColors, 1000);
+    });
+
+    stopButton.addEventListener('click', () => {
+        clearInterval(intervalId);
+    });
+
+    colorTable.addEventListener('click', (event) => {
+        if (event.target.tagName === 'TD') {
+            clearInterval(intervalId);
+
+            const bgColor = event.target.parentElement.cells[1].textContent;
+            const textColor = event.target.parentElement.cells[2].textContent;
+
+            document.body.style.backgroundColor = bgColor;
+            document.body.style.color = textColor;
+        }
+    });
+</script>
+
+
+</body>
+</html>
