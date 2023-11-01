@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Maps & Wikipedia Mashup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      height: 100vh;
+      width: 70%;
+      float: left;
+    }
+
+    #sidebar {
+      width: 30%;
+      float: left;
+      background-color: #f4f4f4;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    #search-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    #results {
+      overflow-y: auto;
+      max-height: 75vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="sidebar">
+    <input type="text" id="search-input" placeholder="Search Wikipedia">
+    <div id="results"></div>
+  </div>
+
+  <script>
+    let map;
+let markers = [];
+const sidebar = document.getElementById("results");
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 0, lng: 0 },
+    zoom: 2,
+  });
+}
+
+document.getElementById("search-input").addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    const query = event.target.value;
+    const username = "rena613"; // 
+    const url = `http://api.geonames.org/wikipediaSearch?q=${query}&maxRows=10&username=${username}&type=json`;
+    fetchWikipediaData(url);
+  }
+});
+
+function fetchWikipediaData(url) {
+  fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data && Array.isArray(data.geonames)) {
+        clearMarkers();
+        displayResults(data.geonames);
+        fitMapToBounds();
+      } else {
+        console.error("Geonames data format is incorrect or empty.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching data from Geonames API:", error);
+    });
+}
+
+
+
+
+    function clearMarkers() {
+      markers.forEach((marker) => marker.setMap(null));
+      markers = [];
+    }
+
+    function displayResults(geonames) {
+      if (geonames && Array.isArray(geonames)) {
+        geonames.forEach((entry) => {
+          const latLng = new google.maps.LatLng(entry.lat, entry.lng);
+          const marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+            title: entry.title,
+          });
+          markers.push(marker);
+
+          const infoWindow = new google.maps.InfoWindow({
+            content: `
+              <h2>${entry.title}</h2>
+              <p>${entry.summary}</p>
+              <a href="${entry.wikipediaUrl}" target="_blank">Read more on Wikipedia</a>
+            `,
+          });
+
+          marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+          });
+        });
+      } else {
+        console.error("No geonames data or data format is incorrect.");
+      }
+    }
+
+    function fitMapToBounds() {
+      if (markers.length > 0) {
+        const bounds = new google.maps.LatLngBounds();
+        markers.forEach((marker) => bounds.extend(marker.getPosition()));
+        map.fitBounds(bounds);
+      }
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBngyGtIOYQ_hIoVaG1Jg8r82MA-YnKxos&callback=initMap" async defer></script>
+</body>
+</html>
