@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Maps Drawing Tools</title>
+  <style>
+    /* Add any CSS styles you want here */
+  </style>
+</head>
+<body>
+  <div id="map" style="height: 500px; width: 100%;"></div>
+  <button id="saveButton">Save Drawings</button>
+  <button id="loadButton">Load Drawings</button>
+  <button id="startDrawing">Start Drawing</button>
+
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBngyGtIOYQ_hIoVaG1Jg8r82MA-YnKxos&libraries=drawing&callback=initMap"></script>
+  <script>
+    let map;
+    let drawingManager;
+    let drawings = [];
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8,
+      });
+
+      drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: null,
+        drawingControl: true,
+        drawingControlOptions: {
+          position: google.maps.ControlPosition.TOP_CENTER,
+          drawingModes: [
+            google.maps.drawing.OverlayType.MARKER,
+            google.maps.drawing.OverlayType.CIRCLE,
+            google.maps.drawing.OverlayType.POLYLINE,
+            google.maps.drawing.OverlayType.POLYGON,
+            google.maps.drawing.OverlayType.RECTANGLE,
+          ],
+        },
+        markerOptions: {
+          icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+        },
+        circleOptions: {
+          fillColor: "#ffff00",
+          fillOpacity: 1,
+          strokeWeight: 5,
+          clickable: false,
+          editable: true,
+          zIndex: 1,
+        },
+      });
+
+      drawingManager.setMap(map);
+
+      google.maps.event.addListener(drawingManager, "overlaycomplete", (event) => {
+        const drawing = event.overlay;
+        const type = event.type;
+        drawings.push({ type, drawing });
+      });
+
+      document.getElementById("saveButton").addEventListener("click", () => {
+        saveDrawings();
+        clearMap();
+      });
+
+      document.getElementById("loadButton").addEventListener("click", () => {
+        loadDrawings();
+      });
+
+      document.getElementById("startDrawing").addEventListener("click", () => { 
+        drawingManager.setDrawingMode(google.maps.drawing.OverlayType.MARKER);
+      
+      });
+    }
+
+    function saveDrawings() {
+      const drawingsData = drawings.map((entry) => {
+        const type = entry.type;
+        const data = {};
+
+        switch (type) {
+          case "marker":
+            data.position = entry.drawing.getPosition().toJSON();
+            break;
+          case "circle":
+            data.center = entry.drawing.getCenter().toJSON();
+            data.radius = entry.drawing.getRadius();
+            break;
+          case "polyline":
+          case "polygon":
+            data.path = entry.drawing.getPath().getArray().map((point) => point.toJSON());
+            break;
+          case "rectangle":
+            data.bounds = entry.drawing.getBounds().toJSON();
+            break;
+          default:
+            console.error("Unknown drawing type");
+            break;
+        }
+
+        return { type, data };
+      });
+
+      localStorage.setItem("drawings", JSON.stringify(drawingsData));
+      console.log("Drawings saved to local storage.");
+    }
+    function clearMap() {
+     
+      drawings.forEach((entry) => {
+        entry.drawing.setMap(null);
+      });
+    }
+    function loadDrawings() {
+      const drawingsData = JSON.parse(localStorage.getItem("drawings")) || [];
+
+      drawingsData.forEach((entry) => {
+        const type = entry.type;
+        const data = entry.data;
+
+        let newDrawing;
+
+        switch (type) {
+          case "marker":
+            newDrawing = new google.maps.Marker({ position: data.position, map: map });
+            break;
+          case "circle":
+            newDrawing = new google.maps.Circle({
+              center: data.center,
+              radius: data.radius,
+              map: map,
+            });
+            break;
+          case "polyline":
+            newDrawing = new google.maps.Polyline({
+              path: data.path.map((point) => new google.maps.LatLng(point)),
+              map: map,
+            });
+            break;
+          case "polygon":
+            newDrawing = new google.maps.Polygon({
+              paths: data.path.map((point) => new google.maps.LatLng(point)),
+              map: map,
+            });
+            break;
+          case "rectangle":
+            newDrawing = new google.maps.Rectangle({
+              bounds: data.bounds,
+              map: map,
+            });
+            break;
+          default:
+            console.error("Unknown drawing type");
+            break;
+        }
+
+        if (newDrawing) {
+          drawings.push({ type, drawing: newDrawing });
+        }
+      });
+
+      console.log("Drawings loaded from local storage.");
+    }
+  </script>
+</body>
+</html>
