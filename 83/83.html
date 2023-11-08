@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mr. Potato Head Game</title>
+  <style>
+    body {
+      background-color: lightblue;
+      background-size: cover;
+    }
+    #potato-head {
+      position: relative;
+      width: 300px;
+      height: 400px;
+    }
+    .draggable {
+      position: absolute;
+      cursor: move;
+      z-index: 1;
+    }
+    .resizable {
+      resize: both;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="potato-head">
+    <img class="draggable resizable" id="potato" src="potato.png" alt="Potato" draggable="false">
+    <img class="draggable resizable" id="eyes" src="eyes.png" alt="Eyes" draggable="true">
+    <img class="draggable resizable" id="regulareyes" src="regulareyes.png" alt="regulareyes" draggable="true">
+    <img class="draggable resizable" id="bigeyes" src="bigeyes.png" alt="bigeyes" draggable="true">
+    <img class="draggable resizable" id="blueeyes" src="blueeyes.png" alt="eyes" draggable="true">
+    <img class="draggable resizable" id="purpleeyes" src="purpleeyes.png" alt="purpleeyes" draggable="true">
+    <img class="draggable resizable" id="nose" src="nose.png" alt="Nose" draggable="true">
+    <img class="draggable resizable" id="mouth" src="mouth.png" alt="Mouth" draggable="true">
+    <img class="draggable resizable" id="teeth" src="teeth.png" alt="Teeth" draggable="true">
+    <img class="draggable resizable" id="mustache" src="mustach.png" alt="Mustache" draggable="true">
+  </div>
+
+  <audio id="music">
+    <source src="music.mp3" type="audio/mp3"></source>
+  </audio>
+
+  <script>
+    let highestZIndex = 1;
+
+    function saveState() {
+      const state = {};
+      const draggableElements = document.querySelectorAll('.draggable');
+      draggableElements.forEach(element => {
+        state[element.id] = {
+          top: element.style.top,
+          left: element.style.left,
+          width: element.style.width,
+          height: element.style.height,
+        };
+      });
+      localStorage.setItem('potato-head-state', JSON.stringify(state));
+    }
+
+    function restoreState() {
+      const savedState = localStorage.getItem('potato-head-state');
+      if (savedState) {
+        const state = JSON.parse(savedState);
+        for (const id in state) {
+          const element = document.getElementById(id);
+          if (element) {
+            element.style.top = state[id].top;
+            element.style.left = state[id].left;
+            element.style.width = state[id].width;
+            element.style.height = state[id].height;
+          }
+        }
+      }
+    }
+
+    const resizableElements = document.querySelectorAll('.resizable');
+    resizableElements.forEach(element => {
+      element.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', '');
+        element.style.zIndex = ++highestZIndex;
+      });
+
+      element.addEventListener('dragend', () => {
+        saveState();
+      });
+    });
+
+    const draggableElements = document.querySelectorAll('.draggable');
+    draggableElements.forEach(element => {
+      element.addEventListener('mousedown', (e) => {
+        let offsetX = e.clientX - element.getBoundingClientRect().left;
+        let offsetY = e.clientY - element.getBoundingClientRect().top;
+
+        document.addEventListener('mousemove', moveElement);
+        document.addEventListener('mouseup', () => {
+          document.removeEventListener('mousemove', moveElement);
+          saveState();
+        });
+
+        function moveElement(e) {
+          element.style.left = e.clientX - offsetX + 'px';
+          element.style.top = e.clientY - offsetY + 'px';
+        }
+      });
+    });
+
+    restoreState();
+  </script>
+</body>
+</html>
+
