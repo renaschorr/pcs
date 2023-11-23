@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle and Plane</title>
+</head>
+<body>
+
+<script>
+ class Vehicle {
+  constructor(color) {
+    this.color = color;
+    this.speed = 0;
+  }
+
+  go(speed) {
+    this.speed = speed;
+    console.log(`Vehicle is now going at speed ${this.speed}`);
+  }
+
+  print() {
+    console.log(`Vehicle color: ${this.color}`);
+    console.log(`Vehicle current speed: ${this.speed}`);
+  }
+}
+
+class Plane extends Vehicle {
+  go(speed) {
+    this.speed = speed;
+    console.log(`Plane is now FLYING at speed ${this.speed}`);
+  }
+}
+ 
+</script>
+
+</body>
+</html>
