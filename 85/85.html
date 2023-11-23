@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle and Plane</title>
+</head>
+<body>
+
+<script>
+  function Vehicle(color) {
+    this.color = color;
+    this.speed = 0;
+  }
+
+  Vehicle.prototype.go = function(speed) {
+    this.speed = speed;
+    console.log(`Vehicle is now going at speed ${speed}`);
+  };
+
+  Vehicle.prototype.print = function() {
+    console.log(`Vehicle color: ${this.color}, current speed: ${this.speed}`);
+  };
+
+   function Plane(color) {
+    Vehicle.call(this, color);
+  }
+
+ 
+  Plane.prototype = Object.create(Vehicle.prototype);
+
+  Plane.prototype.go = function(speed) {
+    console.log(`Plane is now FLYING at speed ${speed}`);
+    
+    Vehicle.prototype.go.call(this, speed);
+  };
+
+ 
+</script>
+
+</body>
+</html>
