@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <style>
+        canvas {
+            border: 1px solid #ccc;
+            margin: 20px auto;
+            display: block;
+        }
+
+        #controls {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        button {
+            font-size: 16px;
+            margin: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="snakeCanvas" width="400" height="400"></canvas>
+    <div id="controls">
+        <button onclick="changeDirection('ArrowUp')">↑</button><br>
+        <button onclick="changeDirection('ArrowLeft')">←</button>
+        <button onclick="changeDirection('ArrowDown')">↓</button>
+        <button onclick="changeDirection('ArrowRight')">→</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("snakeCanvas");
+        const ctx = canvas.getContext("2d");
+
+        const gridSize = 20;
+        const snake = {
+            length: 1,
+            positions: [{ x: 10, y: 10 }],
+            direction: { x: 1, y: 0 }
+        };
+        let apple = { x: 15, y: 15 };
+
+        function draw() {
+    
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+    ctx.fillStyle = "green";
+    ctx.strokeStyle = "black"; 
+    snake.positions.forEach(pos => {
+        ctx.fillRect(pos.x * gridSize, pos.y * gridSize, gridSize, gridSize);
+        ctx.strokeRect(pos.x * gridSize, pos.y * gridSize, gridSize, gridSize); 
+    });
+
+    
+    ctx.fillStyle = "red";
+    ctx.fillRect(apple.x * gridSize, apple.y * gridSize, gridSize, gridSize);
+}
+        function update() {
+           
+            const newHead = {
+                x: snake.positions[0].x + snake.direction.x,
+                y: snake.positions[0].y + snake.direction.y
+            };
+            snake.positions.unshift(newHead);
+
+            
+            if (newHead.x === apple.x && newHead.y === apple.y) {
+                snake.length++;
+                spawnApple();
+            } else {
+              
+                if (snake.positions.length > snake.length) {
+                    snake.positions.pop();
+                }
+            }
+
+           
+            if (
+                newHead.x < 0 ||
+                newHead.x >= canvas.width / gridSize ||
+                newHead.y < 0 ||
+                newHead.y >= canvas.height / gridSize ||
+                checkCollision(newHead)
+            ) {
+               
+                resetGame();
+            }
+        }
+
+        function spawnApple() {
+            apple = {
+                x: Math.floor(Math.random() * (canvas.width / gridSize)),
+                y: Math.floor(Math.random() * (canvas.height / gridSize))
+            };
+        }
+
+        function checkCollision(head) {
+            return snake.positions.slice(1).some(segment => {
+                return segment.x === head.x && segment.y === head.y;
+            });
+        }
+
+        function resetGame() {
+            alert("Game Over! Your score: " + (snake.length - 1));
+            snake.length = 1;
+            snake.positions = [{ x: 10, y: 10 }];
+            snake.direction = { x: 1, y: 0 };
+            spawnApple();
+        }
+
+        function main() {
+            update();
+            draw();
+        }
+
+        function changeDirection(newDirection) {
+            switch (newDirection) {
+                case "ArrowUp":
+                    snake.direction = { x: 0, y: -1 };
+                    break;
+                case "ArrowDown":
+                    snake.direction = { x: 0, y: 1 };
+                    break;
+                case "ArrowLeft":
+                    snake.direction = { x: -1, y: 0 };
+                    break;
+                case "ArrowRight":
+                    snake.direction = { x: 1, y: 0 };
+                    break;
+            }
+        }
+
+        setInterval(main, 200); 
+    </script>
+</body>
+</html>
