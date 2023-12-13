@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Loader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .order {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .item {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label for="fileInput">Select a file:</label>
+        <input type="file" id="fileInput">
+        <button id="loadButton">Load</button>
+    </div>
+    
+    <div id="ordersContainer"></div>
+
+    <script>
+        (function() {
+            class Item {
+                constructor(name, quantity, total) {
+                    this.name = name;
+                    this.quantity = quantity;
+                    this.total = total;
+                    this.price = (total / quantity).toFixed(2);
+                }
+            }
+
+            class Order {
+                constructor(customer, address, items) {
+                    this.customer = customer;
+                    this.address = address;
+                    this.items = items.map(item => new Item(item.item, item.quantity, item.total));
+                }
+
+                get total() {
+                    return this.items.reduce((total, item) => total + parseFloat(item.total), 0).toFixed(2);
+                }
+            }
+
+            function loadOrders(file) {
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        console.log('Loaded orders:', data);
+                        displayOrders(data);
+                    } catch (error) {
+                        console.error('Error parsing JSON:', error.message);
+                    }
+                };
+
+                reader.readAsText(file);
+            }
+
+            function displayOrders(ordersData) {
+                const ordersContainer = document.getElementById('ordersContainer');
+                ordersContainer.innerHTML = '';
+
+                ordersData.forEach(orderData => {
+                    const order = new Order(orderData.customer, orderData.address, orderData.items);
+
+                    const orderElement = document.createElement('div');
+                    orderElement.classList.add('order');
+                    orderElement.innerHTML = `
+                        <h3>Customer: ${order.customer}</h3>
+                        <p>Address: ${order.address}</p>
+                        <p>Total: $${order.total}</p>
+                        <div id="itemsContainer${order.customer}"></div>
+                    `;
+
+                    const itemsContainer = orderElement.querySelector(`#itemsContainer${order.customer}`);
+                    order.items.forEach(item => {
+                        const itemElement = document.createElement('div');
+                        itemElement.classList.add('item');
+                        itemElement.innerHTML = `
+                            <p>Item: ${item.name}</p>
+                            <p>Quantity: ${item.quantity}</p>
+                            <p>Price: $${item.price}</p>
+                        `;
+                        itemsContainer.appendChild(itemElement);
+                    });
+
+                    ordersContainer.appendChild(orderElement);
+                });
+            }
+
+            document.getElementById('loadButton').addEventListener('click', function() {
+                const fileInput = document.getElementById('fileInput');
+                const file = fileInput.files[0];
+
+                if (file) {
+                    loadOrders(file);
+                } else {
+                    console.error('No file selected.');
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
