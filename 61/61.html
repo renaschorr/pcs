@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      display: grid;
+      
+
+      grid: ". r  r  ." 250px
+            "g r2 p2 p" 50px
+            "g g2 b2 p" 50px
+            ". b  b  ." 250px / 250px 50px 50px 250px;
+    }
+
+    div:nth-child(1) {
+      background-color: red;
+      grid-area: r;
+    }
+
+    div:nth-child(2) {
+      background-color: purple;
+      grid-area: p;
+    }
+
+    div:nth-child(3) {
+      background-color: brown;
+      grid-area: b;
+    }
+
+    div:nth-child(4) {
+      background-color: green;
+      grid-area: g;
+    }
+
+    div:nth-child(5) {
+      background-color: red;
+      grid-area: r2;
+    }
+
+    div:nth-child(6) {
+      background-color: purple;
+      grid-area: p2;
+    }
+
+    div:nth-child(7) {
+      background-color: brown;
+      grid-area: b2;
+    }
+
+    div:nth-child(8) {
+      background-color: green;
+      grid-area: g2;
+    }
+  </style>
+</head>
+<body>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</body>
+</html>
