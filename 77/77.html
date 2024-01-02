@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paragraph Colorizer</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    .yellow {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Paragraph Colorizer</h1>
+
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint, explicabo.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint, explicabo. 2</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint, explicabo.</p>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint, explicabo.</p>
+
+  <button id="evens">Evens</button>
+  <button id="odds">Odds</button>
+
+  <script>
+    $(document).ready(function () {
+      
+      $('#evens').click(function () {
+        
+        $('p').removeClass('yellow');
+
+        // Make even paragraphs yellow
+        $('p:even').addClass('yellow');
+      });
+
+      // Click event for "odds" button
+      $('#odds').click(function () {
+        // Reset all paragraphs to their natural color
+        $('p').removeClass('yellow');
+
+        // Make odd paragraphs yellow
+        $('p:odd').addClass('yellow');
+      });
+    });
+  </script>
+
+</body>
+</html>
