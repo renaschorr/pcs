@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Loader</title>
+  <style>
+    #loading {
+      display: none;
+    }
+
+    #content {
+      margin-top: 20px;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+  <h1>File Loader</h1>
+
+  <label for="fileName">Enter File Name:</label>
+  <input type="text" id="fileName" />
+  <button id="loadButton">Load</button>
+
+  <div id="loading">Loading...</div>
+  <div id="content"></div>
+
+  <script>
+    $(document).ready(function () {
+      $('#loadButton').click(function () {
+        const fileName = $('#fileName').val();
+        const loadingDiv = $('#loading');
+        const contentDiv = $('#content');
+
+        
+        loadingDiv.show();
+        contentDiv.empty(); // Clear previous content
+
+        
+        fetch(fileName)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Failed to load ${fileName}`);
+            }
+            return response.text();
+          })
+          .then(data => {
+            
+            loadingDiv.hide();
+            contentDiv.text(data);
+          })
+          .catch(error => {
+            
+            loadingDiv.hide();
+            pcs.messageBox(`Error: ${error.message}`, ['OK']);
+          });
+      });
+    });
+  </script>
+
+</body>
+</html>
