@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Viewer</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    
+  </style>
+</head>
+<body>
+
+  <h1>Recipe Viewer</h1>
+
+  <div>
+    <label for="recipeSelector">Select a Recipe:</label>
+    <select id="recipeSelector">
+     
+    </select>
+  </div>
+
+  <div id="recipeDetails">
+    
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      const recipeSelector = $('#recipeSelector');
+      const recipeDetails = $('#recipeDetails');
+
+     
+      $.ajax({
+        url: 'recipesList.json',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+         
+          data.forEach(function (recipe) {
+            recipeSelector.append(`<option value="${recipe.name}">${recipe.name}</option>`);
+          });
+        },
+        error: function (error) {
+          console.error('Error fetching recipes list:', error);
+        }
+      });
+
+     
+      recipeSelector.change(function () {
+        const selectedRecipeName = $(this).val();
+
+        
+        $.ajax({
+          url: `${selectedRecipeName}.json`,
+          type: 'GET',
+          dataType: 'json',
+          success: function (recipe) {
+            
+            recipeDetails.empty();
+            recipeDetails.append(`<h2>${recipe.name}</h2>`);
+            recipeDetails.append(`<p>Ingredients: ${recipe.ingredients.join(', ')}</p>`);
+            recipeDetails.append(`<img src="${recipe.picture}" alt="${recipe.name}" />`);
+          },
+          error: function (error) {
+            console.error('Error fetching recipe details:', error);
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
