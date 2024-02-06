@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flash Color Example</title>
+  <style>
+    #joe {
+      width: 100px;
+      height: 100px;
+      background-color: yellow;
+      border: 1px solid black;
+      text-align: center;
+      line-height: 100px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="joe">Joe Biden</div>
+  
+  <script>
+    window.pcs = (function () {
+      'use strict';
+
+      function setCss(elem, property, value) {
+        elem.style[property] = value;
+      }
+
+      function getCss(elem, property) {
+        return getComputedStyle(elem)[property];
+      }
+
+      function on(elem, type, callback) {
+        elem.addEventListener(type, callback);
+      }
+
+      function flashColor(elem, duration, speed = 500) {
+        const originalColor = getCss(elem, 'backgroundColor');
+        const flashInterval = setInterval(() => {
+          elem.style.backgroundColor = elem.style.backgroundColor === 'red' ? originalColor : 'red';
+        }, speed);
+        setTimeout(() => {
+          clearInterval(flashInterval);
+          elem.style.backgroundColor = originalColor;
+        }, duration);
+      }
+
+      return function (selector) {
+        const elem = document.querySelector(selector);
+
+        return {
+          css: function (property, value) {
+            if (arguments.length === 2) {
+              setCss(elem, property, value);
+              return this;
+            } else {
+              return getCss(elem, property);
+            }
+          },
+          on: function (type, callback) {
+            on(elem, type, callback);
+            return this;
+          },
+          hide: function () {
+            setCss(elem, 'display', 'none');
+            return this;
+          },
+          show: function () {
+            setCss(elem, 'display', 'block');
+            return this;
+          },
+          click: function (callback) {
+            on(elem, 'click', callback);
+            return this;
+          },
+          flashColor: function (duration, speed) {
+            flashColor(elem, duration, speed);
+            return this;
+          }
+        };
+      };
+    }());
+
+    const joe = pcs('#joe');
+    joe.click(() => joe.flashColor(3000, 100)); // Flash for 3 seconds with a speed of 100ms
+  </script>
+</body>
+</html>
