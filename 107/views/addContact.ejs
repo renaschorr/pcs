@@ -1,0 +1,33 @@
+
+
+<form id="contactForm" method="POST">
+  <h1>Add contact!</h1>
+  <div class="formGroup">
+    <label for="name">Name:</label>
+    <input id="name" name="name" required minlength="3" value="<%= contact.name %>">
+  </div>
+  <div class="formGroup">
+    <label for="email">Email:</label>
+    <input id="email" name="email" value="<%= contact.email %>">
+  </div>
+  <div class="formGroup">
+    <label for="phone">Phone:</label>
+    <input id="phone" name="phone" value="<%= contact.phone %>">
+  </div>
+
+  <button type="submit"  value="Submit">add</button>
+  <button type="reset">Reset</button>
+  <button id="cancelButton" type="button">Cancel</button>
+
+<script>
+    // Get the cancel button element
+    const cancelButton = document.getElementById('cancelButton');
+    // Add a click event listener to the cancel button
+    cancelButton.addEventListener('click', () => {
+    // Redirect to the contacts page
+    window.location.href = '/contacts';
+    });
+</script>
+
+  
+</form>

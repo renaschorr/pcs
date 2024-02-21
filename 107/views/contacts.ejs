@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Contacts</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Edit</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        <% contacts.forEach(contact => { %>
+            <tr>
+                <td><%= contact.name %></td>
+                <td><%= contact.email %></td>
+                <td><%= contact.phone %></td>
+                <td><a href="/edit/<%= contact.id %>">Edit</a></td>
+                
+            </tr>
+        <% }); %>
+    </tbody>
+</table>
+<a href="/addContact">Add Contact</a>
+</body>
+</html>
