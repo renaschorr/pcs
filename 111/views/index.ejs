@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1><%= title %></h1>
+   
+    <a href="/cart" class="btn btn-outline-primary">View Cart</a>
+    
+    
+    <main>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <% items.forEach(function(item) { %>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal"><%= item.name %></h4>
+                    </div>
+                    <div class="card-body">
+                        <h2><%= item.description %></h2>
+                        <img src="<%= item.picture %>" alt="<%= item.name %>" />
+                        <h1 class="card-title pricing-card-title"><%= item.price %></h1>
+                        <form method="post" action="/add-to-cart/<%= item.id %>">
+                            <input type="number" name="quantity" value="1" min="1">
+                            <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </main>
+</body>
+</html>
