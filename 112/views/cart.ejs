@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">PCS Music Store</h1>
+            <nav>
+                <a href="/" class="btn btn-primary">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Your Cart</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% cartItems.forEach(function(item) { %>
+                    <tr>
+                        <td><%= item.name %></td>
+                        <td>$<%= item.price %></td>
+                        <td><%= item.quantity %></td>
+                        <td>$<%= item.price * item.quantity %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 PCS Music Store. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
