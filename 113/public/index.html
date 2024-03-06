@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacts App</title>
+</head>
+<body>
+  <h1>Contacts</h1>
+  <ul id="contacts-list"></ul>
+  <button id="add-contact-btn">Add Contact</button>
+  <button id="update-contact-btn">Update Contact</button>
+  <button id="delete-contact-btn">Delete Contact</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+  <script>
+    
+    const socket = io();
+
+    const contactsList = document.getElementById('contacts-list');
+    let lastContactId = 0;
+
+    
+    const renderContacts = (contacts) => {
+      contactsList.innerHTML = '';
+      contacts.forEach((contact) => {
+        const li = document.createElement('li');
+        li.textContent = `${contact.name} (${contact.email})`;
+        contactsList.appendChild(li);
+      });
+    };
+
+    
+    socket.on('contacts', (contacts) => {
+      renderContacts(contacts);
+    });
+
+    // Event handler for adding a new contact
+    const addContactBtn = document.getElementById('add-contact-btn');
+    addContactBtn.addEventListener('click', () => {
+      const newContact = {
+        id: ++lastContactId, 
+        name: prompt('Enter contact name:'), 
+        email: prompt('Enter contact email:'), 
+      };
+      socket.emit('addContact', newContact);
+    });
+
+    
+    const updateContactBtn = document.getElementById('update-contact-btn');
+    updateContactBtn.addEventListener('click', () => {
+    const updatedContactId = prompt('Enter contact ID to update:');
+    const updatedContactName = prompt('Enter new contact name:');
+    const updatedContactEmail = prompt('Enter new contact email:');
+    const updatedContact = {
+      id: parseInt(updatedContactId), 
+      name: updatedContactName,
+      email: updatedContactEmail,
+    };
+      socket.emit('updateContact', updatedContact);
+    });
+
+   
+    const deleteContactBtn = document.getElementById('delete-contact-btn');
+    deleteContactBtn.addEventListener('click', () => {
+      const contactIdToDelete = parseInt(prompt('Enter contact ID to delete:')); 
+      socket.emit('deleteContact', contactIdToDelete);
+    });
+  </script>
+</body>
+</html>
