@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mr. Potato Head</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+
+    #paintContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    canvas {
+        border: 4px solid #ddd;
+        border-radius: 10px;
+        cursor: crosshair;
+        margin-bottom: 20px;
+       
+    }
+
+    #shapeBox {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .shape {
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        margin-right: 20px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .shape:hover {
+        transform: scale(1.1);
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(1.02);
+        }
+    }
+</style>
+</head>
+<body>
+<div id="paintContainer">
+    <canvas id="paintCanvas" width="800" height="600"></canvas>
+    <div id="shapeBox">
+        <img src="eyes.png" class="shape" alt="Eye">
+        <img src="nose.png" class="shape" alt="Nose">
+        <img src="mouth.png" class="shape" alt="Mouth">
+        <img src="teeth.png" class="shape" alt="teeth">
+        <img src="ears.png" class="shape" alt="ears">
+        <img src="blueeyes.png" class="shape" alt="eyes">
+        <img src="potato.png" class="shape" alt="Potato">
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('paintCanvas');
+    const ctx = canvas.getContext('2d');
+    const shapeBox = document.getElementById('shapeBox');
+
+    let shapes = [];
+    let dragShape = null;
+    let offsetX, offsetY;
+
+    // Add event listeners to shape options
+    shapeBox.addEventListener('click', (event) => {
+        const selectedElement = event.target.closest('.shape');
+        if (selectedElement) {
+            const img = new Image();
+            img.src = selectedElement.src;
+            img.onload = function() {
+                shapes.push({type: selectedElement.alt, data: img, x: 0, y: 0, width: img.width, height: img.height});
+                dragShape = shapes[shapes.length - 1];
+            }
+        }
+    });
+
+    // Add event listener for canvas mouse events
+    canvas.addEventListener('mousedown', (event) => {
+        const mouseX = event.offsetX;
+        const mouseY = event.offsetY;
+
+        // Check if clicked inside any shape for dragging
+        for (let i = shapes.length - 1; i >= 0; i--) {
+            const shape = shapes[i];
+            const dx = mouseX - shape.x;
+            const dy = mouseY - shape.y;
+            if (dx >= 0 && dx <= shape.width && dy >= 0 && dy <= shape.height) {
+                dragShape = shape;
+                offsetX = dx;
+                offsetY = dy;
+
+                // Bring the clicked shape to the front
+                shapes.splice(i, 1);
+                shapes.push(dragShape);
+
+                break;
+            }
+        }
+    });
+
+    // Add event listener for canvas mousemove event
+    canvas.addEventListener('mousemove', (event) => {
+        if (dragShape) {
+            const mouseX = event.offsetX;
+            const mouseY = event.offsetY;
+            dragShape.x = mouseX - offsetX;
+            dragShape.y = mouseY - offsetY;
+        }
+    });
+
+    // Add event listener for canvas mouseup event
+    canvas.addEventListener('mouseup', () => {
+        dragShape = null;
+    });
+
+    // Draw shapes on canvas
+    function drawShapes() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        shapes.forEach(shape => {
+            ctx.drawImage(shape.data, shape.x, shape.y, shape.width, shape.height);
+        });
+    }
+
+    // Redraw canvas when shapes change
+    setInterval(drawShapes, 1000 / 60);
+</script>
+</body>
+</html>
