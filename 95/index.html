@@ -1,0 +1,91 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.min.js"></script>
+  <script type="text/babel">
+    const WeatherDetails = ({ temperature, description }) => {
+      return (
+        <div>
+          <h2>Weather Details</h2>
+          <p>Temperature: {temperature}</p>
+          <p>Description: {description}</p>
+        </div>
+      );
+    };
+class App extends React.Component {
+  state = {
+    zip: '',
+    weatherData: null,
+    loading: false,
+    error: null
+  };
+
+  handleZipChange = (e) => {
+    const zip = e.target.value;
+    this.setState({ zip });
+    if (zip.length === 5) {
+      this.fetchWeather(zip);
+    }
+  };
+
+  fetchWeather = (zip) => {
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=fmycodehereeeeee&units=imperial`;
+
+    this.setState({ loading: true, error: null });
+
+    fetch(proxyUrl + apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch weather data');
+        }
+        return response.json();
+      })
+      .then(data => {
+        this.setState({ weatherData: data, loading: false });
+      })
+      .catch(error => {
+        this.setState({ error: error.message, loading: false });
+      });
+  };
+
+  render() {
+    const { weatherData, loading, error } = this.state;
+
+    return (
+      <div>
+        <h1>Weather App</h1>
+        <input
+          type="text"
+          value={this.state.zip}
+          onChange={this.handleZipChange}
+          placeholder="Enter ZIP code"
+        />
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
+        {weatherData && (
+          <WeatherDetails
+            temperature={weatherData.main.temp}
+            description={weatherData.weather[0].description}
+          />
+        )}
+      </div>
+    );
+  }
+}
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
