@@ -1,0 +1,16 @@
+{
+    "name": "blog-app-server",
+    "version": "1.0.0",
+    "description": "Server for a blog application",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "mongodb": "6.5",
+        "mongoose": "^6.12.7"
+    }
+}

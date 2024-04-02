@@ -1,0 +1,76 @@
+/* Reset default browser styles */
+body, h1, h2, h3, p, ul, li, header, nav, main, section, aside, footer {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Header styles */
+header {
+  background-color: #343a40;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Navigation styles */
+nav {
+  background-color: #343a40;
+  padding: 0.5rem;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 1rem;
+}
+
+nav ul li a {
+  color: #fff;
+}
+
+/* Main content styles */
+main {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+section {
+  flex: 2;
+}
+
+aside {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+/* Footer styles */
+footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
